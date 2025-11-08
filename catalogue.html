@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket 2 Love – Каталог Профілів</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+  <!-- КОМПЛЕКСНЕ ВИПРАВЛЕННЯ: ХЕДЕР + МОБІЛЬНЕ МЕНЮ -->
+<header class="main-header" id="main-header">
+    <a href="index.html" class="logo-link">
+        <img src="assets/img/logo.png" alt="Логотип Ticket 2 Love" class="logo">
+    </a>
+
+    <nav class="main-nav" id="main-nav" aria-label="Основна навігація">
+        <a href="index.html">Головна</a>
+        <a href="#about">Про Нас</a>
+        <a href="catalogue.html">Каталог</a>
+        <button id="view-favorites" class="favorites-button cta-her">Обрані (0)</button>
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Відкрити меню" aria-controls="main-nav" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+    <main>
+        <section id="profile-catalogue" class="catalogue-section">
+            <h1 id="catalogue-title" class="section-title fade-in">Каталог Профілів</h1> 
+            
+            <div class="catalogue-controls">
+    <div class="age-filter">
+        <label for="age-range">Вік: <span id="age-value">18–55</span></label>
+        <input type="range" id="age-range" min="18" max="55" value="55" class="age-slider">
+    </div>
+
+    <a href="application.html" id="proceed-to-application" class="cta-button cta-her disabled" disabled>
+        Перейти до заявки <span id="select-count">(0/3)</span>
+    </a>
+</div>
+
+<!-- Пагінація -->
+<div class="pagination" id="pagination"></div>
+
+            <div class="profile-grid" id="profile-grid"> 
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Ticket 2 Love. Усі права захищені. | <a href="#">Політика Конфіденційності</a></p>
+  </footer>
+
+<script src="js/profiles.js"></script>
+<script src="js/script.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800,
+    easing: 'ease-out-quart',
+    once: true,
+    offset: 100
+  });
+</script>
+
+<!-- (якщо хочеш — можеш залишити перевірку, але після profiles.js) -->
+<script>
+  if (typeof profiles === 'undefined') {
+    document.body.innerHTML = `<div style="...">ПОМИЛКА! profiles.js не завантажено</div>`;
+  }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

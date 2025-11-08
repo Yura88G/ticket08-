@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профіль Анни – Ticket 2 Love</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+    <!-- КОМПЛЕКСНЕ ВИПРАВЛЕННЯ: ХЕДЕР + МОБІЛЬНЕ МЕНЮ -->
+<header class="main-header" id="main-header">
+    <a href="index.html" class="logo-link">
+        <img src="assets/img/logo.png" alt="Логотип Ticket 2 Love" class="logo">
+    </a>
+
+    <nav class="main-nav" id="main-nav" aria-label="Основна навігація">
+        <a href="index.html">Головна</a>
+        <a href="#about">Про Нас</a>
+        <a href="catalogue.html">Каталог</a>
+        <button id="view-favorites" class="favorites-button cta-her">Обрані (0)</button>
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Відкрити меню" aria-controls="main-nav" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+    <main>
+        <section id="profile-detail" class="profile-detail-section">
+            
+            <a href="catalogue.html" class="back-link">
+                &larr; Назад до Каталогу
+            </a>
+
+            <div class="profile-layout">
+                <div class="photo-gallery">
+                    <div class="main-photo-wrapper">
+                        <img src="assets/img/placeholder-woman-1.jpg" alt="Основне фото Анни" class="main-profile-photo">
+                    </div>
+                    
+                    <div class="thumbnail-gallery">
+                        <img src="assets/img/placeholder-woman-2.jpg" alt="Додаткове фото 1" class="thumbnail-photo">
+                        <img src="assets/img/placeholder-woman-3.jpg" alt="Додаткове фото 2" class="thumbnail-photo">
+                    </div>
+                </div>
+
+                <div class="profile-content">
+                    
+                    <div class="name-block">
+                        <h1 class="profile-name-detail">Анна, 32</h1>
+                        <p class="profile-city-detail">Київ</p>
+                    </div>
+
+                    <div class="info-block">
+                        <h2 class="block-title">Про Себе</h2>
+                        <p class="block-text">
+                            Я — архітектор з пристрастю до скандинавського дизайну та гірських походів. Шукаю гармонію у стосунках, ціную щирість та інтелектуальний гумор. Люблю ранки з фільтра-кавою та вечори з цікавою книгою.
+                        </p>
+                    </div>
+
+                    <div class="info-block">
+                        <h2 class="block-title">Інтереси</h2>
+                        <div class="tags-container">
+                            <span class="tag">Кіно</span>
+                            <span class="tag">Мандри</span>
+                            <span class="tag">Джаз</span>
+                            <span class="tag">Сучасне мистецтво</span>
+                        </div>
+                    </div>
+
+                    <div class="info-block">
+                        <h2 class="block-title">Що я шукаю</h2>
+                        <p class="block-text italic-text">
+                            "Людину, з якою можна будувати не лише плани на вихідні, але й майбутнє. Того, хто знає ціну часу та сміється з дурниць."
+                        </p>
+                    </div>
+
+                    <div class="cta-fixed-wrapper">
+                        <button id="select-profile-btn" class="cta-button cta-her">Обрати Анну</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Ticket 2 Love. Усі права захищені.</p>
+    </footer>
+   
+<script src="js/profiles.js"></script>
+<script src="js/script.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800,
+    easing: 'ease-out-quart',
+    once: true,
+    offset: 100
+  });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

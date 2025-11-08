@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket 2 Love – Ваш квиток до справжнього кохання</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+
+</head>
+<body>
+
+   <!-- КОМПЛЕКСНЕ ВИПРАВЛЕННЯ: ХЕДЕР + МОБІЛЬНЕ МЕНЮ -->
+<header class="main-header" id="main-header">
+    <a href="index.html" class="logo-link">
+        <img src="assets/img/logo.png" alt="Логотип Ticket 2 Love" class="logo">
+    </a>
+
+ <nav class="main-nav" id="main-nav" aria-label="Основна навігація">
+    <a href="index.html">Головна</a>
+    <a href="#about">Організатор</a> <!-- ЗМІНЕНО НА "Організатор" -->
+    <a href="#how-it-works">Як це працює</a>
+    <a href="#faq">Часті Питання</a>
+</nav>
+
+    <!-- Одна кнопка гамбургера — без дублювання -->
+    <button class="nav-toggle" id="nav-toggle" aria-label="Відкрити меню" aria-controls="main-nav" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+    <main>
+<!-- WOW-ефект логотипу на весь екран -->
+<div class="hero-logo-intro">
+  <h3 class="hero-logo-text">TICKET_2_LOVE</h3>
+</div>         
+
+<section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="hero-content container">
+        <h1 class="hero-title">Знайомства, що змінять все. Ваш квиток до справжнього кохання.</h1>
+        <h2 class="hero-subtitle">Ніяких свайпів. Лише підібрані особисто для Вас зустрічі.</h2>
+        
+    </div>
+</section>
+
+<!-- Секція з кнопками -->
+<section id="selection" class="selection-section">
+  <div class="selection-block">
+    <a href="catalogue.html?gender=male" class="cta-button cta-him">
+      Я шукаю ЙОГО
+    </a>
+    <a href="catalogue.html?gender=female" class="cta-button cta-her">
+      Я шукаю ЇЇ
+    </a>
+  </div>
+</section>
+
+   <!-- ======================================== -->
+<!-- БЛОК: ТРИ КРОКИ ДО ЗУСТРІЧІ (GLASSMORPHISM) -->
+<!-- ======================================== -->
+<section id="how-it-works" class="steps-section fade-in" data-aos="fade-up">
+    <h2 class="steps-title">Три кроки до вашої зустрічі</h2>
+    
+    <div class="steps-container">
+        <!-- Крок 1 -->
+        <div class="step-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+            </div>
+            <h3 class="step-title">Ваш Вибір</h3>
+            <p class="step-text">
+                Оберіть <span class="accent">2–3 профілі</span>, які вас найбільше зацікавили — просто додайте їх до списку «Мої Обрані».
+            </p>
+        </div>
+
+        <!-- Крок 2 -->
+        <div class="step-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                </svg>
+            </div>
+            <h3 class="step-title">Персональна Консультація</h3>
+            <p class="step-text">
+                Наш адміністратор зв’яжеться з вами, щоб обговорити деталі та організувати зустріч.
+            </p>
+        </div>
+
+        <!-- Крок 3 -->
+        <div class="step-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 5h3a2 2 0 0 1 2 2v3m0 0v6a2 2 0 0 1-2 2h-3m3-8H9m0 0H6a2 2 0 0 0-2 2v3m0 0v3a2 2 0 0 0 2 2h3"/>
+                    <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg>
+            </div>
+            <h3 class="step-title">Насолоджуйтесь Побаченням</h3>
+            <p class="step-text">
+                Зустрічайтеся. Усміхайтеся. Створюйте спогади. <span class="accent">Ми вже все підготували для вас.</span>
+            </p>
+        </div>
+    </div>
+
+</section>
+            
+    <!-- ======================================== -->
+<!-- СЕКЦІЯ: ОРГАНІЗАТОР — ПРЕМІУМ ВЕРСІЯ -->
+<!-- ======================================== -->
+<section id="about" class="organizer-section">
+    
+    <h2 class="organizer-title">Організатор</h2> 
+
+    <div class="organizer-container">
+        <div class="organizer-header">
+            <div class="organizer-photo-wrapper">
+                <img src="assets/img/organizer-photo.jpg" alt="Наталія Беринко" class="organizer-photo">
+            </div>
+            
+            <div class="organizer-info">
+                <p class="organizer-name">Наталія Беринко</p>
+                <p class="organizer-slogan">
+                    Створюю моменти, що стають спогадами...
+                </p>
+            </div>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-item">
+                <span class="service-icon">◆</span>
+                <span class="service-title">Романтичні побачення "під ключ"</span>
+            </div>
+            <div class="service-item">
+                <span class="service-icon">◆</span>
+                <span class="service-title">Побачення-сюрпризи</span>
+            </div>
+            <div class="service-item">
+                <span class="service-icon">◆</span>
+                <span class="service-title">Романтичні вибачення</span>
+            </div>
+            <div class="service-item">
+                <span class="service-icon">◆</span>
+                <span class="service-title">Пропозиції руки і серця</span>
+            </div>
+            <div class="service-item">
+                <span class="service-icon">◆</span>
+                <span class="service-title">Святкування річниць</span>
+            </div>
+            <div class="service-item">
+                <span class="service-icon">◆</span>
+                <span class="service-title">Квести для двох — під вашу історію кохання</span>
+            </div>
+        </div>
+    </div>
+</section>
+    </main>
+    <!-- ======================================== -->
+<!-- 4.1. FAQ — Часті питання (на головній)   -->
+<!-- ======================================== -->
+<section class="faq-section" id="faq" data-aos="fade-up">
+    <h2>Часті Питання</h2>
+    
+    <div class="faq-item">
+        <div class="faq-question">Як обрати профіль?</div>
+        <div class="faq-answer">Натисніть ❤️ на картці в каталозі. Ви можете обрати до 3 профілів.</div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">Чому ліміт 3 профілі?</div>
+        <div class="faq-answer">Це оптимально для персональної заявки. Ви отримаєте детальний аналіз.</div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">Чи можна змінити вибір?</div>
+        <div class="faq-answer">Так! Натисніть ❤️ ще раз — вибір зніметься.</div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">Як працює фільтр?</div>
+        <div class="faq-answer">Оберіть "Шукаю його" або "Шукаю її" → фільтр за віком у каталозі.</div>
+    </div>
+    
+    <div class="faq-item">
+        <div class="faq-question">Чи безпечно?</div>
+        <div class="faq-answer">Так! Усі дані конфіденційні. Ми не передаємо інформацію третім особам.</div>
+    </div>
+</section>
+    <footer class="footer-section">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <h3 class="footer-logo">TICKET 2 LOVE</h3>
+            <p>Знайдіть своє кохання вже сьогодні 💌</p>
+        </div>
+        <div class="footer-socials">
+            <a href="https://www.instagram.com/ticket_2_love" class="social-btn instagram" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.057-1.263-.069-1.645-.069-4.849 0-3.204.013-3.583.069-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                <span>Instagram</span>
+            </a>
+            <a href="https://t.me/bkXWiZCwh3Y3YWNi" class="social-btn telegram" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                <span>Telegram</span>
+            </a>
+            <a href="https://www.tiktok.com/@ticket_2_love" class="social-btn tiktok" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.8 4.38c-.09-.01-1.2-.13-2.8.3-.5.12-1.2.4-1.8.8-1.1.7-1.5 1.6-1.4 2.5.1 1.1.6 2.2 1.7 2.5 1.1.3 2.2.2 3.3-.2.2 0 .4-.1.6-.2.1 0 .1-.1.2-.2.1-.1.2-.2.2-.4v-1c-.1.1-.3.1-.5.1-1.3 0-2.5-.7-2.8-1.7 0-.2.1-.4.2-.6.2-.2.4-.3.6-.4.3-.1.6-.2.9-.3.2-.1.4-.1.6-.1h.6c.1 0 .2 0 .2.1v.7c0 .3-.1.5-.3.7-.2.2-.4.3-.7.3-.6 0-1.1-.5-1.2-1.1 0-.3.1-.5.2-.7.2-.2.4-.3.7-.3h.4c.4 0 .7.1 1 .2.3.1.5.3.7.5.2.2.3.4.3.7v1.1c0 .4-.1.8-.4 1.1-.3.3-.6.5-.9.6-.3.1-.7.1-1-.1-.8-.2-1.6-.8-1.9-1.7-.2-1-.1-1.9.4-2.6.4-.5 1.1-.9 1.8-1 .8-.1 1.6-.1 2.4.1 1.2.2 1.9.7 2.1 1.4.1.3.2.9.1 1.4-.1.6-.5 1.1-1.1 1.4-.6.3-1.3.4-2.1.3-1.3-.2-2.4-.9-2.8-2.1-.2-.7-.2-1.4.0-2.1.1-.4.3-.8.6-1.1.3-.3.7-.5 1.1-.6.7-.1 1.4-.2 2.1.1z"/></svg>
+                <span>TikTok</span>
+            </a>
+        </div>
+        <div class="footer-legal">
+            <p>&copy; 2025 Ticket 2 Love. Усі права захищені.</p>
+            <p><a href="#">Політика конфіденційності</a> | <a href="#">Умови використання</a></p>
+        </div>
+    </div>
+</footer>
+
+   <script src="js/profiles.js"></script>
+<script src="js/script.js"></script>
+    <!-- AOS Анімація -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800,
+    easing: 'ease-out-quart',
+    once: true,
+    offset: 100
+  });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
