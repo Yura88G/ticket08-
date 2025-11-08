@@ -1377,38 +1377,6 @@ body.menu-open {
     color: var(--color-fuchsia);
 }
 
-/* Стиль для слайдерів (Input Range) */
-input[type="range"] {
-    width: 100%;
-    -webkit-appearance: none;
-    appearance: none;
-    height: 8px;
-    background: var(--color-light-grey);
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-/* Стиль повзунка */
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--color-fuchsia);
-    cursor: pointer;
-    border: 3px solid var(--color-cream);
-}
-
-input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--color-fuchsia);
-    cursor: pointer;
-    border: 3px solid var(--color-cream);
-}
-
  /* ========================================================================= */
 
 /* ========================================================================= */
@@ -1948,6 +1916,7 @@ input[type="range"]::-moz-range-thumb {
         font-size: 1rem;
     }
 }
+
 
 
 
