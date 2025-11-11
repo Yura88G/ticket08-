@@ -147,7 +147,11 @@ if (document.getElementById('profile-grid')) {
     const ageValue = document.getElementById('age-value');
     const proceedBtn = document.getElementById('proceed-to-application');
     const selectCount = document.getElementById('select-count');
+
+    // Кнопки "Обрані"
     const viewFavoritesBtn = document.getElementById('view-favorites');
+    const viewFavoritesMobileBtn = document.getElementById('view-favorites-mobile');
+    const viewFavoritesIcon = document.getElementById('view-favorites-icon');
 
     let currentPage = 1;
     let filteredProfiles = [...profiles];
@@ -194,7 +198,7 @@ if (document.getElementById('profile-grid')) {
                     <h3 class="profile-name">${p.name}, ${p.age}</h3>
                     <p class="profile-city">${p.city}</p>
                     <p class="profile-description">${p.description}</p>
-                    <a href="profile-detail.html?id=${p.id}" class="view-profile-btn">Переглянути профіль</a>
+                    <a href="profile.html?id=${p.id}" class="view-profile-btn">Переглянути</a>
                 </div>
             </div>
         `).join('');
@@ -249,7 +253,7 @@ if (document.getElementById('profile-grid')) {
         paginationContainer.appendChild(createBtn(currentPage + 1, '→', currentPage === totalPages));
     };
 
-    // === ОБРАНІ (localStorage) ===
+    // === ОБРАНІ ===
     const isFavorite = (id) => {
         const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
         return favs.includes(id.toString());
@@ -275,14 +279,15 @@ if (document.getElementById('profile-grid')) {
         proceedBtn.disabled = count === 0;
     };
 
-    // === ОНОВЛЕННЯ ЛІЧИЛЬНИКА В ШАПЦІ ===
+    // === ОНОВЛЕННЯ ЛІЧИЛЬНИКА "ОБРАНІ" ===
     const updateFavoritesCounter = () => {
         const count = (JSON.parse(localStorage.getItem('favorites') || '[]')).length;
-        const counterEl = document.querySelector('#view-favorites');
-        if (counterEl) {
-            counterEl.textContent = `Обрані (${count})`;
-            counterEl.classList.toggle('has-favorites', count > 0);
-        }
+        document.querySelectorAll('.favorites-counter').forEach(el => {
+            el.textContent = `(${count})`;
+        });
+        document.querySelectorAll('#view-favorites, #view-favorites-mobile, #view-favorites-icon').forEach(el => {
+            el.classList.toggle('has-favorites', count > 0);
+        });
     };
 
     // === МОДАЛЬНЕ ВІКНО "МОЇ ОБРАНІ" ===
@@ -292,17 +297,26 @@ if (document.getElementById('profile-grid')) {
     const modalCount = document.getElementById('modal-count');
     const modalProceedBtn = document.getElementById('modal-proceed-btn');
 
-    viewFavoritesBtn?.addEventListener('click', (e) => {
-        e.preventDefault();
+    const openFavoritesModal = () => {
         renderFavoritesModal();
         favoritesModal.classList.add('is-open');
         document.body.style.overflow = 'hidden';
-    });
+    };
 
     const closeModal = () => {
         favoritesModal.classList.remove('is-open');
         document.body.style.overflow = '';
     };
+
+    [viewFavoritesBtn, viewFavoritesMobileBtn, viewFavoritesIcon].forEach(btn => {
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openFavoritesModal();
+            });
+        }
+    });
+
     closeModalBtn?.addEventListener('click', closeModal);
     favoritesModal?.addEventListener('click', (e) => {
         if (e.target === favoritesModal) closeModal();
@@ -350,12 +364,24 @@ if (document.getElementById('profile-grid')) {
         modalProceedBtn.disabled = favorites.length === 0;
     };
 
+    // === ГАМБУРГЕР МЕНЮ ===
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    navToggle?.addEventListener('click', () => {
+        const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', !isExpanded);
+        mobileNav.setAttribute('aria-hidden', isExpanded);
+        document.body.classList.toggle('menu-open', !isExpanded);
+    });
+
     // === ЗАПУСК ===
     renderCatalog();
     renderPagination();
     updateFavoritesCounter();
     updateSelectCount();
-    }
+}
+            
     // =========================================================================
     // 4. ДЕТАЛЬНИЙ ПРОФІЛЬ
     // =========================================================================
@@ -440,6 +466,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateFavoritesCounter();
 
 }); // ← ЦЕЙ ЗАКРИВАЮЧИЙ ЕЛЕМЕНТ БУВ ВТРАЧЕНИЙ!
+
 
 
 
