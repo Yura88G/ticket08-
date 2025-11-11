@@ -79,156 +79,7 @@ button, input, textarea, .main-nav a, .logo {
 /* ========================================================================= */
 /* 3. HEADER & НАВІГАЦІЯ */
 /* 3. HEADER & НАВІГАЦІЯ */
-/* КОМПЛЕКСНЕ ВИПРАВЛЕННЯ: МОБІЛЬНЕ МЕНЮ + АДАПТИВНІСТЬ + АНІМАЦІЯ */
 
-/* 1. ХЕДЕР: фіксований, центрований, без перетину */
-.main-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 15px 32px; /* Більше відступів з боків */
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Логотип: клікабельний, не перекривається */
-.logo-link {
-    display: block;
-    flex-shrink: 0;
-}
-
-.logo {
-    height: 38px;
-    width: auto;
-    transition: transform 0.3s ease;
-}
-
-.logo-link:hover .logo {
-    transform: scale(1.08);
-}
-
-/* Навігація: прихована на мобілці, плавне відкриття */
-.main-nav {
-    display: flex;
-    align-items: center;
-    gap: 24px; /* Трохи більше між пунктами */
-    margin-left: auto;   /* Відштовхує від лівого краю */
-    margin-right: 20px;  /* Відступ від правого краю */
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.main-nav a,
-.main-nav button {
-    color: #fff;
-    font-weight: 500;
-    font-size: 0.95rem;
-    text-decoration: none;
-    padding: 6px 0;
-    white-space: nowrap;
-    transition: all 0.3s ease;
-}
-
-.main-nav a:hover,
-.favorites-button:hover {
-    color: #FDD8AA;
-    text-shadow: 0 0 8px rgba(253, 216, 170, 0.4);
-}
-
-/* Кнопка гамбургера */
-.nav-toggle {
-    display: none; /* Прихована на десктопі */
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1001;
-    position: relative;
-}
-
-.nav-toggle span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: #fff;
-    margin: 5px 0;
-    transition: all 0.3s ease;
-    border-radius: 1px;
-}
-
-/* Анімація хрестика */
-.nav-toggle[aria-expanded="true"] span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-}
-
-.nav-toggle[aria-expanded="true"] span:nth-child(2) {
-    opacity: 0;
-}
-
-.nav-toggle[aria-expanded="true"] span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-}
-
-/* Мобільна версія */
-@media (max-width: 768px) {
-    /* Показуємо кнопку гамбургера */
-    .nav-toggle {
-    display: block;
-    margin-left: auto;
-    margin-right: 20px; /* Збільшено з 8px до 20px — чіткий відступ */
-    padding: 12px;     /* Додатковий "клік-зона" */
-}
-
-    /* Меню виїжджає зправа — не штовхає контент */
-    .main-nav {
-        position: fixed;
-        top: 0;
-        right: -100%; /* Початкове положення */
-        width: 280px;
-        height: 100vh;
-        background: rgba(21, 6, 6, 0.97);
-        backdrop-filter: blur(15px);
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 100px 20px 40px;
-        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
-        transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        z-index: 999;
-    }
-
-    .main-nav.is-open {
-        right: 0; /* Відкрите положення */
-    }
-
-    /* Стилі посилань у мобільному меню */
-    .main-nav a,
-    .main-nav button {
-        font-size: 1.1rem;
-        width: 100%;
-        text-align: center;
-        padding: 14px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .main-nav a:last-child,
-    .main-nav button {
-        border-bottom: none;
-    }
-}
-
-/* ФІКС: фон не "стрибає" при відкритті меню */
-body.menu-open {
-    overflow: hidden; /* Блокує скролінг */
-    padding-right: 0 !important; /* Запобігає стрибку через скролбар */
-}
 /* ========================================================================= */
 /* 4. HERO СЕКЦІЯ (ОНОВЛЕНО) */
 /* 4. HERO СЕКЦІЯ (ОНОВЛЕНО + ОПТИМАЛЬНИЙ БАЛАНС) */
@@ -2039,14 +1890,205 @@ body.menu-open {
 }
 
 
+/* ========================================================================= */
+/* 11. НОВА ШАПКА: ДЕСКТОП + МОБІЛЬНА АДАПТАЦІЯ + ІКОНКА "ОБРАНІ" */
+/* ========================================================================= */
 
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 32px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
 
+.logo-link {
+    display: block;
+    flex-shrink: 0;
+}
 
+.logo {
+    height: 38px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
 
+.logo-link:hover .logo {
+    transform: scale(1.08);
+}
 
+/* Десктопна навігація */
+.desktop-nav {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 20px;
+}
 
+.desktop-nav a,
+.desktop-nav button {
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 6px 0;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
 
+.desktop-nav a:hover,
+.favorites-button:hover {
+    color: #FDD8AA;
+    text-shadow: 0 0 8px rgba(253, 216, 170, 0.4);
+}
 
+/* Мобільне меню — виїжджає зліва */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    background: rgba(21, 6, 6, 0.97);
+    backdrop-filter: blur(15px);
+    padding: 100px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 999;
+    overflow-y: auto;
+    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-nav[aria-hidden="false"] {
+    left: 0;
+}
+
+.mobile-nav a,
+.mobile-nav button {
+    color: #f8f8f6;
+    font-size: 1.1rem;
+    width: 100%;
+    text-align: center;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav a:last-child,
+.mobile-nav button {
+    border-bottom: none;
+}
+
+.mobile-nav button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Кнопка гамбургера */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    z-index: 1001;
+    margin-left: auto;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #fff;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+    border-radius: 1px;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Іконка "Обрані" на мобільці */
+.favorites-icon {
+    display: none;
+    background: none;
+    border: none;
+    color: #ccc0b2;
+    position: relative;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.favorites-icon svg {
+    width: 26px;
+    height: 26px;
+    fill: currentColor;
+}
+
+.favorites-icon .favorites-counter {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #570009;
+    color: #f8f8f6;
+    font-size: 0.7rem;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+}
+
+.favorites-icon.has-favorites {
+    color: #570009;
+    background: rgba(204, 192, 178, 0.2);
+}
+
+/* Адаптація */
+@media (max-width: 768px) {
+    .desktop-nav {
+        display: none;
+    }
+    .nav-toggle {
+        display: block;
+    }
+    .favorites-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Фон при відкритті меню */
+body.menu-open {
+    overflow: hidden;
+}
 
 
 
