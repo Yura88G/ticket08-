@@ -1378,7 +1378,128 @@ body.menu-open {
 }
 
  /* ========================================================================= */
+/* 10.2 МОДАЛЬНЕ ВІКНО "МОЇ ОБРАНІ" */
+/* ========================================================================= */
+.favorites-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin: 10px 0;
+}
 
+.favorites-list::-webkit-scrollbar {
+    width: 6px;
+}
+.favorites-list::-webkit-scrollbar-track {
+    background: rgba(136, 134, 181, 0.1);
+    border-radius: 3px;
+}
+.favorites-list::-webkit-scrollbar-thumb {
+    background: #8886b5;
+    border-radius: 3px;
+}
+
+.favorite-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: rgba(136, 134, 181, 0.15);
+    border-radius: 12px;
+    border: 1px solid rgba(136, 134, 181, 0.3);
+    transition: all 0.3s ease;
+}
+
+.favorite-item:hover {
+    background: rgba(204, 192, 178, 0.2);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(204, 192, 178, 0.2);
+}
+
+.favorite-item img {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid #8886b5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.favorite-item-info {
+    flex: 1;
+}
+
+.favorite-item-name {
+    font-weight: 600;
+    color: #570009;
+    margin: 0 0 4px;
+    font-size: 1.1rem;
+    font-family: var(--font-serif);
+}
+
+.favorite-item-city {
+    color: #8886b5;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.remove-favorite {
+    background: #8886b5;
+    color: #f8f8f6;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.remove-favorite:hover {
+    background: #570009;
+    transform: scale(1.1);
+}
+
+.modal-footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#modal-proceed-btn {
+    min-width: 220px;
+    padding: 12px 24px;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+#modal-proceed-btn:not(.disabled) {
+    background: #8886b5;
+    color: #f8f8f6;
+}
+
+#modal-proceed-btn:not(.disabled):hover {
+    background: #ccc0b2;
+    color: #570009;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(204, 192, 178, 0.4);
+}
+
+.empty-favorites {
+    text-align: center;
+    color: #8886b5;
+    font-style: italic;
+    padding: 30px 20px;
+    font-size: 1rem;
+    background: rgba(136, 134, 181, 0.05);
+    border-radius: 10px;
+    margin: 10px 0;
+    }
 /* ========================================================================= */
 /* 11. БЛОК "ПРО НАС" - ЧИСТИЙ + ТРЕНДОВИЙ 2025 */
 /* ========================================================================= */
@@ -1916,6 +2037,7 @@ body.menu-open {
         font-size: 1rem;
     }
 }
+
 
 
 
