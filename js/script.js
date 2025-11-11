@@ -139,161 +139,222 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================================
     // 3. КАТАЛОГ — ФІЛЬТРАЦІЯ, ПАГІНАЦІЯ, ДОДАВАННЯ ДО ОБРАНИХ
     // =========================================================================
-    if (document.getElementById('profile-grid')) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const currentGender = urlParams.get('gender') || '';
-        let filteredProfiles = currentGender
-            ? profiles.filter(p => p.gender === currentGender)
-            : [...profiles];
-        const PROFILES_PER_PAGE = 2;
-        let currentPage = 1;
+// === КАТАЛОГ ПРОФІЛІВ ===
+if (document.getElementById('profile-grid')) {
+    const profileGrid = document.getElementById('profile-grid');
+    const paginationContainer = document.getElementById('pagination');
+    const ageSlider = document.getElementById('age-range');
+    const ageValue = document.getElementById('age-value');
+    const proceedBtn = document.getElementById('proceed-to-application');
+    const selectCount = document.getElementById('select-count');
+    const viewFavoritesBtn = document.getElementById('view-favorites');
 
-        const renderCatalog = () => {
-            const grid = document.getElementById('profile-grid');
-            const start = (currentPage - 1) * PROFILES_PER_PAGE;
-            const end = start + PROFILES_PER_PAGE;
-            const pageProfiles = filteredProfiles.slice(start, end);
-            grid.innerHTML = pageProfiles.map(p => {
-                const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-                const isFavorite = favorites.includes(p.id.toString());
-                return `
-                    <div class="profile-card" data-id="${p.id}">
-                        <div class="card-header-wrapper">
-                            <img src="assets/img/${p.img}" alt="${p.name}" class="profile-photo" loading="lazy">
-                            <button class="favorite-toggle ${isFavorite ? 'is-favorite' : ''}" data-id="${p.id}">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="card-content">
-                            <h2 class="profile-name">${p.name}, ${p.age}</h2>
-                            <p class="profile-city">${p.city}</p>
-                            <p class="profile-description">${p.description}</p>
-                            <a href="profile.html?id=${p.id}" class="view-profile-btn cta-her">Переглянути</a>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+    let currentPage = 1;
+    let filteredProfiles = [...profiles];
+    let currentGender = new URLSearchParams(window.location.search).get('gender') || null;
+    const PROFILES_PER_PAGE = 6;
 
-            // Обробка кнопок "сердечко"
-            document.querySelectorAll('.favorite-toggle').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const id = e.currentTarget.dataset.id;
-                    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-                    if (favorites.includes(id)) {
-                        favorites = favorites.filter(f => f !== id);
-                        e.currentTarget.classList.remove('is-favorite');
-                    } else if (favorites.length < 3) {
-                        favorites.push(id);
-                        e.currentTarget.classList.add('is-favorite');
-                    } else {
-                        alert('Ліміт 3 профілі. Перейдіть до заявки.');
-                    }
-                    localStorage.setItem('favorites', JSON.stringify(favorites));
-                    updateFavoritesCounter();
+    // === ФІЛЬТРАЦІЯ ЗА СТАТТЮ ===
+    if (currentGender === 'male' || currentGender === 'female') {
+        filteredProfiles = profiles.filter(p => p.gender === currentGender);
+    }
+
+    // === ФІЛЬТР ПО ВІКУ ===
+    if (ageSlider && ageValue) {
+        ageValue.textContent = `18–${ageSlider.value}`;
+        ageSlider.addEventListener('input', () => {
+            const maxAge = ageSlider.value;
+            ageValue.textContent = `18–${maxAge}`;
+            filteredProfiles = profiles.filter(p =>
+                p.age <= maxAge && (!currentGender || p.gender === currentGender)
+            );
+            currentPage = 1;
+            renderCatalog();
+            renderPagination();
+        });
+    }
+
+    // === РЕНДЕР КАРТОК ===
+    const renderCatalog = () => {
+        const start = (currentPage - 1) * PROFILES_PER_PAGE;
+        const end = start + PROFILES_PER_PAGE;
+        const pageProfiles = filteredProfiles.slice(start, end);
+
+        profileGrid.innerHTML = pageProfiles.map(p => `
+            <div class="profile-card">
+                <div class="card-header-wrapper">
+                    <img src="assets/img/${p.img}" alt="${p.name}" class="profile-photo" onerror="this.src='assets/img/placeholder-female.jpg'">
+                    <button class="favorite-toggle ${isFavorite(p.id) ? 'is-favorite' : ''}" data-id="${p.id}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="card-content">
+                    <h3 class="profile-name">${p.name}, ${p.age}</h3>
+                    <p class="profile-city">${p.city}</p>
+                    <p class="profile-description">${p.description}</p>
+                    <a href="profile-detail.html?id=${p.id}" class="view-profile-btn">Переглянути профіль</a>
+                </div>
+            </div>
+        `).join('');
+
+        document.querySelectorAll('.favorite-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                toggleFavorite(btn.dataset.id);
+                btn.classList.toggle('is-favorite');
+                updateSelectCount();
+                updateFavoritesCounter();
+            });
+        });
+
+        updateSelectCount();
+    };
+
+    // === ПАГІНАЦІЯ ===
+    const renderPagination = () => {
+        const totalPages = Math.ceil(filteredProfiles.length / PROFILES_PER_PAGE);
+        paginationContainer.innerHTML = '';
+
+        if (totalPages <= 1) return;
+
+        const createBtn = (page, text, disabled = false) => {
+            const btn = document.createElement('button');
+            btn.className = 'page-btn';
+            btn.textContent = text;
+            btn.disabled = disabled;
+            if (page === currentPage) btn.classList.add('active');
+            if (page) {
+                btn.addEventListener('click', () => {
+                    currentPage = page;
+                    renderCatalog();
+                    renderPagination();
+                    window.scrollTo(0, 0);
                 });
-            });
-        };
-
-        // === ПАГІНАЦІЯ — ПОВНІСТЮ РОБОЧА ===
-        const renderPagination = () => {
-            const totalPages = Math.ceil(filteredProfiles.length / PROFILES_PER_PAGE);
-            const pagination = document.getElementById('pagination');
-            if (!pagination || totalPages <= 1) {
-                if (pagination) pagination.innerHTML = '';
-                return;
             }
+            return btn;
+        };
 
-            pagination.innerHTML = '';
-
-            // Попередня
-            const prev = document.createElement('button');
-            prev.textContent = '‹';
-            prev.className = 'page-btn';
-            prev.disabled = currentPage === 1;
-            prev.onclick = () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderCatalog();
-                    renderPagination();
-                    scrollToCatalog();
-                }
-            };
-            pagination.appendChild(prev);
-
-            // Номери сторінок
-            for (let i = 1; i <= totalPages; i++) {
-                if (totalPages <= 7 || i <= 2 || i > totalPages - 2 || Math.abs(i - currentPage) <= 1) {
-                    const btn = document.createElement('button');
-                    btn.textContent = i;
-                    btn.className = 'page-btn';
-                    if (i === currentPage) btn.classList.add('active');
-                    btn.onclick = () => {
-                        currentPage = i;
-                        renderCatalog();
-                        renderPagination();
-                        scrollToCatalog();
-                    };
-                    pagination.appendChild(btn);
-                } else if (
-                    (i === 3 && currentPage > 4) ||
-                    (i === totalPages - 2 && currentPage < totalPages - 3)
-                ) {
-                    const dots = document.createElement('span');
-                    dots.textContent = '...';
-                    dots.className = 'page-dots';
-                    pagination.appendChild(dots);
-                    i = i === 3 ? currentPage - 2 : totalPages - 3;
-                }
+        paginationContainer.appendChild(createBtn(currentPage - 1, '←', currentPage === 1));
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                paginationContainer.appendChild(createBtn(i, i));
+            } else if (i === currentPage - 2 || i === currentPage + 2) {
+                const dots = document.createElement('span');
+                dots.className = 'page-dots';
+                dots.textContent = '...';
+                paginationContainer.appendChild(dots);
             }
+        }
+        paginationContainer.appendChild(createBtn(currentPage + 1, '→', currentPage === totalPages));
+    };
 
-            // Наступна
-            const next = document.createElement('button');
-            next.textContent = '›';
-            next.className = 'page-btn';
-            next.disabled = currentPage === totalPages;
-            next.onclick = () => {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderCatalog();
-                    renderPagination();
-                    scrollToCatalog();
-                }
-            };
-            pagination.appendChild(next);
-        };
+    // === ОБРАНІ (localStorage) ===
+    const isFavorite = (id) => {
+        const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+        return favs.includes(id.toString());
+    };
 
-        const scrollToCatalog = () => {
-            document.getElementById('profile-catalogue').scrollIntoView({ behavior: 'smooth' });
-        };
+    const toggleFavorite = (id) => {
+        let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+        id = id.toString();
+        if (favs.includes(id)) {
+            favs = favs.filter(f => f !== id);
+        } else if (favs.length < 3) {
+            favs.push(id);
+        } else {
+            alert('Ви можете обрати максимум 3 профілі!');
+        }
+        localStorage.setItem('favorites', JSON.stringify(favs));
+    };
 
-        // Фільтр за віком
-       const ageSlider = document.getElementById('age-range');
-        if (ageSlider) {
-            ageSlider.addEventListener('input', () => {
-                const maxAge = ageSlider.value;
-                document.getElementById('age-value').textContent = `18–${maxAge}`;
-                filteredProfiles = profiles.filter(p =>
-                    p.age <= maxAge && (!currentGender || p.gender === currentGender)
-                );
-                currentPage = 1;
-                renderCatalog();
-                renderPagination(); // Оновлюємо пагінацію після фільтру!
-            });
+    const updateSelectCount = () => {
+        const count = (JSON.parse(localStorage.getItem('favorites') || '[]')).length;
+        selectCount.textContent = `(${count}/3)`;
+        proceedBtn.classList.toggle('disabled', count === 0);
+        proceedBtn.disabled = count === 0;
+    };
+
+    // === ОНОВЛЕННЯ ЛІЧИЛЬНИКА В ШАПЦІ ===
+    const updateFavoritesCounter = () => {
+        const count = (JSON.parse(localStorage.getItem('favorites') || '[]')).length;
+        const counterEl = document.querySelector('#view-favorites');
+        if (counterEl) {
+            counterEl.textContent = `Обрані (${count})`;
+            counterEl.classList.toggle('has-favorites', count > 0);
+        }
+    };
+
+    // === МОДАЛЬНЕ ВІКНО "МОЇ ОБРАНІ" ===
+    const favoritesModal = document.getElementById('favorites-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const favoritesList = document.getElementById('favorites-list');
+    const modalCount = document.getElementById('modal-count');
+    const modalProceedBtn = document.getElementById('modal-proceed-btn');
+
+    viewFavoritesBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        renderFavoritesModal();
+        favoritesModal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+    });
+
+    const closeModal = () => {
+        favoritesModal.classList.remove('is-open');
+        document.body.style.overflow = '';
+    };
+    closeModalBtn?.addEventListener('click', closeModal);
+    favoritesModal?.addEventListener('click', (e) => {
+        if (e.target === favoritesModal) closeModal();
+    });
+
+    const renderFavoritesModal = () => {
+        const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        modalCount.textContent = `(${favorites.length}/3)`;
+
+        if (favorites.length === 0) {
+            favoritesList.innerHTML = '<p class="empty-favorites">Ви ще не обрали жодного профілю</p>';
+            modalProceedBtn.classList.add('disabled');
+            modalProceedBtn.disabled = true;
+            return;
         }
 
-        // ЗАПУСК
-        renderCatalog();
-        renderPagination();
-        updateFavoritesCounter();
+        favoritesList.innerHTML = favorites.map(id => {
+            const p = profiles.find(pr => pr.id == id);
+            if (!p) return '';
+            return `
+                <div class="favorite-item">
+                    <img src="assets/img/${p.img}" alt="${p.name}" onerror="this.src='assets/img/placeholder-female.jpg'">
+                    <div class="favorite-item-info">
+                        <div class="favorite-item-name">${p.name}, ${p.age}</div>
+                        <div class="favorite-item-city">${p.city}</div>
+                    </div>
+                    <button class="remove-favorite" data-id="${p.id}" title="Видалити">×</button>
+                </div>
+            `;
+        }).join('');
 
-        // === ІНІЦІАЛІЗАЦІЯ ФІЛЬТРУ ПО ВІКУ ПРИ ЗАВАНТАЖЕННІ ===
-        const ageSliderInit = document.getElementById('age-range');
-        const ageValueInit = document.getElementById('age-value');
-        if (ageSliderInit && ageValueInit) {
-            ageValueInit.textContent = `18–${ageSliderInit.value}`;
-        }
+        document.querySelectorAll('.remove-favorite').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = e.currentTarget.dataset.id;
+                let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+                favs = favs.filter(f => f !== id);
+                localStorage.setItem('favorites', JSON.stringify(favs));
+                updateFavoritesCounter();
+                updateSelectCount();
+                renderFavoritesModal();
+            });
+        });
+
+        modalProceedBtn.classList.toggle('disabled', favorites.length === 0);
+        modalProceedBtn.disabled = favorites.length === 0;
+    };
+
+    // === ЗАПУСК ===
+    renderCatalog();
+    renderPagination();
+    updateFavoritesCounter();
+    updateSelectCount();
     }
     // =========================================================================
     // 4. ДЕТАЛЬНИЙ ПРОФІЛЬ
@@ -379,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateFavoritesCounter();
 
 }); // ← ЦЕЙ ЗАКРИВАЮЧИЙ ЕЛЕМЕНТ БУВ ВТРАЧЕНИЙ!
+
 
 
 
