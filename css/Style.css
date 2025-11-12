@@ -496,4 +496,287 @@ button, input, textarea, .main-nav a, .logo {
         margin: 0; /* Прибрано зайвий margin */
     }
     }
+    /* ======================================= */
+/* СЕКЦІЯ 3.1: АНІМАЦІЇ FADE-IN (AOS Replacement) */
+/* ======================================= */
+
+/* Початковий стан: прихований */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    /* Плавний перехід для анімації */
+    transition: opacity 1s ease-out, transform 1s ease-out; 
+}
+
+/* Кінцевий стан: видимий (викликається JS) */
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Затримка для послідовного появи карток (використовується в step-card) */
+.step-card[data-delay="100"] { transition-delay: 0.1s; }
+.step-card[data-delay="200"] { transition-delay: 0.2s; }
+/* Додайте інші затримки, якщо вони потрібні в HTML, наприклад data-delay="300" */
+.step-card[data-delay="300"] { transition-delay: 0.3s; } 
+
+/* ======================================= */
+/* СЕКЦІЯ 3.2: ДЕТАЛЬНИЙ ПРОФІЛЬ */
+/* ======================================= */
+
+.profile-detail-section {
+    padding: 30px 20px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    /* Використовуємо наш основний текст, але з низькою непрозорістю */
+    color: rgba(var(--color-text-primary-rgb), 0.7); 
+    font-family: var(--font-sans);
+}
+
+/* Двоколонковий макет (Mobile-First) */
+.profile-layout {
+    display: flex;
+    flex-direction: column; 
+    gap: 30px;
+}
+
+/* ГАЛЕРЕЯ ТА ФОТО */
+.photo-gallery { flex: 1 1 50%; }
+
+.main-profile-photo {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-soft); 
+    display: block;
+}
+
+.thumbnail-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.thumbnail-photo {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-soft);
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity var(--transition-speed);
+}
+.thumbnail-photo:hover { opacity: 1; }
+
+/* ІНФОРМАЦІЙНИЙ БЛОК */
+.profile-content { flex: 1 1 50%; }
+
+.profile-name-detail {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.profile-city-detail {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: rgba(var(--color-text-primary-rgb), 0.7); /* Світло-сірий */
+    margin-bottom: 30px;
+}
+
+.info-block { margin-bottom: 30px; }
+
+.block-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    /* Акцентне підкреслення (Світлий акцент) */
+    border-bottom: 1px solid rgba(var(--color-accent-secondary-rgb), 0.5); 
+}
+
+.block-text {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--color-text-primary);
+}
+
+.italic-text {
+    font-style: italic;
+    color: rgba(var(--color-text-primary-rgb), 0.7);
+}
+
+/* Теги Інтересів */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.tag {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    /* Світлий фон тега */
+    background-color: rgba(var(--color-text-primary-rgb), 0.1); 
+    color: var(--color-text-primary);
+    padding: 5px 15px;
+    border-radius: var(--border-radius-soft);
+    transition: all var(--transition-speed);
+    cursor: default;
+}
+
+.tag:hover {
+    background-color: var(--color-accent-secondary); /* Акцент 2 */
+    color: var(--color-bg-primary); /* Темний текст */
+}
+
+/* Кнопка CTA на сторінці профілю */
+.cta-fixed-wrapper { margin-top: 40px; }
+
+/* Адаптація для Десктопа */
+@media (min-width: 992px) {
+    .profile-layout { flex-direction: row; }
+    .profile-content { padding-left: 50px; }
+    /* cta-fixed-wrapper (залишено коментарями, якщо знадобиться) */
+}
+/* ======================================= */
+/* СЕКЦІЯ 3.3: ОРГАНІЗАТОР (BLUEMORPHISM) */
+/* ======================================= */
+
+.organizer-section {
+    max-width: 1000px;
+    margin: 100px auto 140px auto; 
+    padding: 0 15px;
+}
+
+/* ЗАГОЛОВОК СЕКЦІЇ */
+.organizer-title {
+    font-family: var(--font-serif); 
+    font-size: 2.8rem; 
+    font-weight: 700;
+    text-align: center;
+    margin: 0 auto 40px auto; 
+    max-width: 900px;
+
+    /* КОЛІР: Чисте Золото зі змінної */
+    color: var(--color-accent-gold); 
+
+    /* ПОСИЛЕНА ТІНЬ (КРИТИЧНО) */
+    text-shadow: 
+        -2px -2px 0 #000, 2px -2px 0 #000, 
+        -2px 2px 0 #000, 2px 2px 0 #000,
+        0 0 20px rgba(255, 223, 0, 0.6); 
+    display: block; 
+}
+
+/* КОНТЕЙНЕР BLUEMORPHISM */
+.organizer-container {
+    /* Градієнт для фону (темніший Glassmorphism) */
+    background: linear-gradient(
+        135deg,
+        rgba(0, 5, 20, 0.75), 
+        rgba(10, 30, 80, 0.65), 
+        rgba(var(--color-accent-gold-rgb), 0.2) /* Акцентна прозорість */
+    );
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    border-radius: 32px;
+    padding: 68px 56px;
+
+    /* Тінь та Сріблястий обідок */
+    box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.6), 
+        0 0 24px rgba(170, 216, 253, 0.25); 
+    border: 1.5px solid rgba(170, 216, 253, 0.6); 
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* Анімація світіння (velvet-shine) */
+.organizer-container::before {
+    /* ... стилі без змін, анімація залишена */
+}
+@keyframes velvet-shine {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(12%, 12%) rotate(6deg); }
+}
+
+/* HEADER ТА ІНФО */
+.organizer-header {
+    display: flex;
+    align-items: center;
+    gap: 44px;
+    margin-bottom: 76px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.organizer-photo {
+    width: 160px;
+    height: 160px;
+    /* ОБІДОК ФОТО - Акцентне Золото */
+    border: 2.5px solid var(--color-accent-gold); 
+    box-shadow: 0 12px 36px rgba(var(--color-accent-gold-rgb), 0.35); 
+    transition: all 0.5s ease;
+}
+.organizer-photo:hover {
+    transform: scale(1.08) translateY(-6px);
+    box-shadow: 0 24px 56px rgba(var(--color-accent-gold-rgb), 0.45);
+}
+
+.organizer-info { text-align: left; flex: 1; min-width: 300px; }
+
+.organizer-name {
+    font-family: var(--font-serif);
+    font-size: 2rem; 
+    font-weight: 700;
+    color: var(--color-text-primary);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4); 
+}
+
+.organizer-slogan {
+    font-size: 1.22rem;
+    /* КОЛІР: Акцентне Золото */
+    color: var(--color-accent-gold); 
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* ПОСЛУГИ */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 44px; 
+}
+.service-item:hover { transform: translateX(14px); }
+
+.service-icon {
+    /* КОЛІР: Акцентне Золото */
+    color: var(--color-accent-gold); 
+    font-size: 1.45rem;
+}
+
+.service-title {
+    color: var(--color-text-primary); 
+    font-size: 1.14rem;
+    font-weight: 600;
+    font-family: var(--font-sans);
+}
+
+/* АДАПТИВНІСТЬ (Без змін) */
+@media (max-width: 768px) {
+    /* ... стилі адаптації без змін ... */
+}
+@media (max-width: 480px) {
+    /* ... стилі адаптації без змін ... */
+                                  }
     
