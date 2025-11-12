@@ -582,4 +582,111 @@ function initializeApp(profiles) {
 // document.addEventListener('DOMContentLoaded', () => {
 //     initializeApp(profiles); // ЦЕ БУДЕ ВИКЛИКАНО ПІСЛЯ ЗАВАНТАЖЕННЯ PROFILES.JS
 // });
+// =========================================================================
+// script-clean.js (Продовження)
+// =========================================================================
 
+// ... (FavoritesController, initializeFavoritesModal, CatalogRenderer) ...
+
+
+// =========================================================================
+// 11. МОДУЛЬ: FAQ АКОРДЕОН
+// =========================================================================
+
+/**
+ * Ініціалізує логіку FAQ-акордеону (відкриття/закриття).
+ */
+function initializeFAQ() {
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const faqItem = question.parentElement;
+            const isActive = faqItem.classList.contains('active');
+
+            // Закриваємо всі інші елементи
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Відкриваємо поточний (якщо він не був активний)
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        });
+    });
+}
+
+
+// =========================================================================
+// 12. МОДУЛЬ: AOS ІНІЦІАЛІЗАЦІЯ
+// =========================================================================
+
+/**
+ * Ініціалізує бібліотеку AOS, якщо вона підключена.
+ */
+function initializeAOS() {
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-quart',
+            once: true,
+            offset: 100
+        });
+        console.log('AOS успішно ініціалізовано!');
+    } else {
+        console.error('ПОМИЛКА: AOS не завантажився! Перевірте підключення бібліотеки AOS.');
+        // Ви можете додати запасну логіку (наприклад, видалити клас 'fade-in' з усіх елементів),
+        // якщо бібліотека не завантажилася, щоб контент був видимий.
+    }
+}
+
+
+// =========================================================================
+// 13. ГОЛОВНА ФУНКЦІЯ ЗАПУСКУ (ОНОВЛЕНА)
+// =========================================================================
+
+/**
+ * Головна функція запуску всіх модулів.
+ * @param {Array<Object>} profiles - Масив даних профілів (повинен бути імпортований з profiles.js).
+ */
+function initializeApp(profiles) {
+    // Основна логіка (Секція 5.1)
+    handleIntroAnimation();
+    initializeMobileMenu();
+    initializeSmoothScroll();
+    
+    // Анімації та FAQ (Секція 5.3)
+    initializeAOS();
+    initializeFAQ();
+    
+    // Логіка Каталогу (Секція 5.2)
+    const isCatalogPage = document.querySelector(DOMSelectors.profileGrid);
+    if (isCatalogPage) {
+        // УВАГА: Тут потрібен глобальний масив profiles!
+        // Передаємо profiles в ініціалізатор.
+        CatalogRenderer.init(profiles);
+        initializeFavoritesModal(profiles); 
+    }
+
+    // Завжди оновлюємо лічильник після ініціалізації всіх обробників
+    updateFavoritesCounter();
+}
+
+// =========================================================================
+// ЗАПУСК КОДУ
+// =========================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    // !!! КРИТИЧНО !!!
+    // На цій сторінці ми не можемо запустити initializeApp, оскільки 
+    // масив `profiles` ще не визначений (він знаходиться в іншому файлі - profiles.js).
+    // Ми викликаємо initializeApp, коли завантажимо profiles.js.
+
+    // ЗАРАЗ ПРОСТО ЗАПУСКАЄМО ТЕ, ЩО НЕ ПОТРЕБУЄ PROFILES
+    initializeApp([]); // Тимчасово передаємо порожній масив, щоб запустити меню, FAQ, AOS
+
+    // ПІСЛЯ РЕФАКТОРИНГУ PROFILES.JS МИ ВИКЛИЧЕМО initializeApp(profiles) ГЛОБАЛЬНО
+});
+
+// Експорт оновленого лічильника для profiles.js
+export { updateFavoritesCounter };
+        
