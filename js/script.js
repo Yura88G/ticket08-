@@ -460,12 +460,113 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('ПОМИЛКА: AOS не завантажився! Перевір підключення.');
     }
 });
-    // =========================================================================
-    // 7. ОНОВЛЕННЯ ЛІЧИЛЬНИКА ПРИ ЗАВАНТАЖЕННІ
-    // =========================================================================
-    updateFavoritesCounter();
+     // ← ЦЕЙ ЗАКРИВАЮЧИЙ ЕЛЕМЕНТ БУВ ВТРАЧЕНИЙ!
+// =========================================================================
+// ДОДАЙ ЦЕ В КІНЕЦЬ script.js (після всіх твоїх функцій)
+// =========================================================================
 
-}); // ← ЦЕЙ ЗАКРИВАЮЧИЙ ЕЛЕМЕНТ БУВ ВТРАЧЕНИЙ!
+// Оновлюємо лічильник "Обрані"
+function updateFavoritesCounter() {
+    let count = (JSON.parse(localStorage.getItem('favorites') || '[]')).length;
+    document.querySelectorAll('.favorites-counter').forEach(el => {
+        el.textContent = `(${count})`;
+    });
+    document.querySelectorAll('#view-favorites, #view-favorites-mobile, #view-favorites-icon').forEach(el => {
+        el.classList.toggle('has-favorites', count > 0);
+    });
+}
+
+// Гамбургер — працює з твоїм #mobile-nav
+const navToggle = document.getElementById('nav-toggle');
+const mobileNav = document.getElementById('mobile-nav');
+if (navToggle && mobileNav) {
+    navToggle.addEventListener('click', () => {
+        const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', !isOpen);
+        mobileNav.setAttribute('aria-hidden', isOpen);
+        document.body.classList.toggle('menu-open', !isOpen);
+    });
+}
+
+// Модалка "Обрані"
+const modal = document.getElementById('favorites-modal');
+const closeBtn = document.getElementById('close-modal');
+const list = document.getElementById('favorites-list');
+const modalCount = document.getElementById('modal-count');
+const proceedBtn = document.getElementById('modal-proceed-btn');
+
+function openModal() {
+    let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+    modalCount.textContent = `(${favs.length}/3)`;
+
+    if (favs.length === 0) {
+        list.innerHTML = '<p style="text-align:center; color:#888;">Ви ще не обрали профіль</p>';
+        proceedBtn.classList.add('disabled');
+        proceedBtn.disabled = true;
+    } else {
+        list.innerHTML = favs.map(id => {
+            let p = profiles.find(x => x.id == id);
+            return p ? `
+                <div style="display:flex; align-items:center; gap:12px; padding:12px; background:rgba(255,255,255,0.1); border-radius:8px; margin:8px 0;">
+                    <img src="assets/img/${p.img}" style="width:50px; height:50px; border-radius:8px;" onerror="this.src='assets/img/placeholder-female.jpg'">
+                    <div>
+                        <div style="color:#fff; font-weight:600;">${p.name}, ${p.age}</div>
+                        <div style="color:#ccc; font-size:0.9rem;">${p.city}</div>
+                    </div>
+                    <button style="margin-left:auto; background:#c00; color:#fff; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer;" 
+                            onclick="removeFavorite(${p.id})">×</button>
+                </div>
+            ` : '';
+        }).join('');
+        proceedBtn.classList.remove('disabled');
+        proceedBtn.disabled = false;
+    }
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function removeFavorite(id) {
+    let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+    favs = favs.filter(f => f != id);
+    localStorage.setItem('favorites', JSON.stringify(favs));
+    updateFavoritesCounter();
+    openModal();
+}
+
+function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+// Кнопки
+document.querySelectorAll('#view-favorites, #view-favorites-mobile, #view-favorites-icon').forEach(btn => {
+    btn?.addEventListener('click', openModal);
+});
+closeBtn?.addEventListener('click', closeModal);
+modal?.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+// Оновлюємо сердечка в каталозі
+document.querySelectorAll('.favorite-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+        if (favs.includes(id)) {
+            favs = favs.filter(f => f !== id);
+        } else if (favs.length < 3) {
+            favs.push(id);
+        } else {
+            alert('Максимум 3!');
+            return;
+        }
+        localStorage.setItem('favorites', JSON.stringify(favs));
+        btn.classList.toggle('is-favorite');
+        updateFavoritesCounter();
+    });
+});
+
+// Запуск
+updateFavoritesCounter();
 
 
 
