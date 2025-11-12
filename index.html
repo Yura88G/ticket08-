@@ -16,24 +16,46 @@
 <body>
 
    <!-- КОМПЛЕКСНЕ ВИПРАВЛЕННЯ: ХЕДЕР + МОБІЛЬНЕ МЕНЮ -->
-<header class="main-header" id="main-header">
+<header class="main-header">
     <a href="index.html" class="logo-link">
         <img src="assets/img/logo.png" alt="Логотип Ticket 2 Love" class="logo">
     </a>
 
- <nav class="main-nav" id="main-nav" aria-label="Основна навігація">
-    <a href="index.html">Головна</a>
-    <a href="#about">Організатор</a> <!-- ЗМІНЕНО НА "Організатор" -->
-    <a href="#how-it-works">Як це працює</a>
-    <a href="#faq">Часті Питання</a>
-</nav>
+    <!-- ДЕСКТОПНА НАВІГАЦІЯ -->
+    <nav class="desktop-nav">
+        <a href="index.html">Головна</a>
+        <a href="#about">Організатор</a>
+        <a href="#how-it-works">Як це працює</a>
+        <a href="#faq">Контакти</a>
+        <button id="view-favorites" class="favorites-btn">
+            Обрані <span class="favorites-counter">(0)</span>
+        </button>
+    </nav>
 
-    <!-- Одна кнопка гамбургера — без дублювання -->
-    <button class="nav-toggle" id="nav-toggle" aria-label="Відкрити меню" aria-controls="main-nav" aria-expanded="false">
+    <!-- МОБІЛЬНІ КНОПКИ -->
+    <button class="nav-toggle" id="nav-toggle" aria-controls="mobile-nav" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
     </button>
+
+    <button id="view-favorites-icon" class="favorites-icon" aria-label="Обрані">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        <span class="favorites-counter">(0)</span>
+    </button>
+
+    <!-- МОБІЛЬНЕ МЕНЮ -->
+    <nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
+        <a href="index.html">Головна</a>
+        <a href="#about">Організатор</a>
+        <a href="#how-it-works">Як це працює</a>
+        <a href="#faq">Контакти</a>
+        <button id="view-favorites-mobile" class="favorites-btn">
+            Обрані <span class="favorites-counter">(0)</span>
+        </button>
+    </nav>
 </header>
 
     <main>
@@ -237,6 +259,7 @@
 </script>
 </body>
 </html>
+
 
 
 
