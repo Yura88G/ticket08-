@@ -198,3 +198,302 @@ button, input, textarea, .main-nav a, .logo {
         transform: translateY(0);
     }
 }
+/* ======================================= */
+/* СЕКЦІЯ 2.1: КНОПКИ CTA (SELECTION) */
+/* ======================================= */
+
+.selection-section {
+    padding: 60px 20px 20px 20px;
+    margin-top: -80px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    position: relative;
+}
+
+.selection-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    /* Анімація появи: використовує keyframes fadeIn (див. нижче) */
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 3.2s forwards;
+
+    /* Glassmorphism для блоку */
+    background: rgba(255, 255, 255, 0.08);
+    padding: 24px;
+    border-radius: var(--border-radius-soft); /* Використовуємо змінну 12px → 16px */
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(12px);
+    /* Акцентна рамка */
+    border: 1px solid rgba(var(--color-accent-primary-rgb), 0.2); 
+}
+
+/* CTA-КНОПКА (УНІФІКОВАНИЙ СТИЛЬ) */
+.cta-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 24px;
+    font-size: clamp(1rem, 1.2vw + 0.3rem, 1.1rem);
+    font-weight: 600;
+    border: none;
+    border-radius: var(--border-radius-soft);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    color: var(--color-text-primary); /* #f8f8f6 */
+    position: relative;
+    overflow: hidden;
+    /* Акцентна тінь */
+    box-shadow: 0 6px 20px rgba(136, 134, 181, 0.3);
+    white-space: nowrap;
+    min-width: 170px;
+    background: var(--color-accent-primary); /* #8886b5 */
+    text-align: center;
+    flex: 1 1 auto;
+    cursor: pointer;
+    outline: none;
+    font-family: var(--font-sans);
+}
+
+/* Ефекти: відблиск та ripple-ефект */
+.cta-button::before { /* Відблиск */
+    content: "";
+    /* ... стилі без змін ... */
+}
+
+.cta-button::after { /* Ripple-ефект */
+    content: "";
+    /* ... стилі без змін, колір замінено на змінну */
+    background: rgba(var(--color-accent-secondary-rgb), 0.4); 
+}
+
+.cta-button:hover::before,
+.cta-button:focus::before {
+    left: 100%;
+}
+
+.cta-button:hover::after,
+.cta-button:focus::after,
+.cta-button:active::after { /* ВИПРАВЛЕНО: ctory-button → cta-button */
+    width: 200%;
+    height: 200%;
+}
+
+.cta-button:hover,
+.cta-button:focus,
+.cta-button:active {
+    background: var(--color-accent-secondary); /* #ccc0b2 */
+    color: var(--color-bg-primary); /* #570009 */
+    transform: translateY(-3px) scale(1.03);
+    /* Тінь від другого акценту */
+    box-shadow: 0 16px 40px rgba(204, 192, 178, 0.4);
+    border: 1px solid rgba(var(--color-accent-primary-rgb), 0.3);
+}
+
+/* СПЕЦІАЛЬНІ КЛАСИ ДЛЯ HOVER (ОСНОВНИЙ BACKGROUND ВИДАЛЕНО ЯК ДУБЛЬ) */
+.cta-him:hover { background: var(--color-accent-secondary); }
+.cta-her:hover { background: var(--color-accent-secondary); }
+
+/* Keyframes для появи */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* ======================================= */
+/* СЕКЦІЯ 2.2: БЛОК КРОКІВ (GLASSMORPHISM) */
+/* ======================================= */
+
+/* ДОДАЙТЕ ЦЕ У СВІЙ :ROOT (Секція 1.1) */
+/*
+:root {
+    --color-accent-gold: #FFD700; 
+    --color-accent-gold-gradient: linear-gradient(90deg, #FDD8AA, #B8860B);
+}
+*/
+
+.steps-section {
+    max-width: 1100px;
+    margin: 100px auto;
+    padding: 0 15px;
+    text-align: center;
+}
+
+/* Anchor Link Offset */
+#how-it-works {
+    padding-top: 100px; 
+    margin-top: -100px;  
+    scroll-margin-top: 100px; 
+}
+
+/* ЗАГОЛОВОК СЕКЦІЇ */
+.steps-title {
+    font-size: 2.8rem; 
+    text-align: center;
+    color: var(--color-text-primary);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 40px;
+}
+
+.steps-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    /* Використовуємо нову змінну для градієнта */
+    background: var(--color-accent-gold-gradient);
+    margin: 20px auto 0;
+    border-radius: 2px;
+}
+
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+/* GLASSMORPHISM КАРТКА */
+.step-card {
+    background: linear-gradient(
+        135deg,
+        rgba(0, 5, 20, 0.65), 
+        rgba(10, 30, 80, 0.55),
+        rgba(var(--color-text-primary-rgb), 0.1) /* Білий колір */
+    );
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 20px;
+    padding: 32px 24px;
+    border: 1px solid rgba(170, 216, 253, 0.35); /* Сріблястий обідок */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover-ефекти */
+.step-card::before {
+    /* ... ефект відблиску ... */
+}
+
+.step-card:hover::before {
+    opacity: 1;
+}
+
+.step-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(170, 216, 253, 0.2); 
+    border-color: rgba(170, 216, 253, 0.6);
+}
+
+/* Іконка та текст */
+.step-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    color: var(--color-accent-gold); /* Золотий колір */
+    stroke-width: 1.8;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+    transition: transform 0.3s ease;
+}
+
+.step-card:hover .step-icon {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.step-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 12px;
+    font-family: var(--font-sans);
+}
+
+.step-text {
+    font-size: 1rem;
+    color: #f0f0f0; /* Залишаємо відтінок сірого, якщо він потрібен. */
+    line-height: 1.7;
+    font-family: var(--font-sans);
+}
+
+.accent {
+    color: var(--color-accent-gold); /* Золотий колір */
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+/* ======================================= */
+/* СЕКЦІЯ 2.3: АДАПТАЦІЯ (MEDIA QUERIES) */
+/* ======================================= */
+
+/* DESKTOP-FIRST: > 768px */
+@media (min-width: 768px) {
+    /* HERO */
+    .hero-title { font-size: 3.5rem; } 
+    .hero-subtitle { font-size: 1.3rem; }
+
+    /* SELECTION */
+    .selection-block {
+        flex-direction: row; 
+        max-width: 550px;
+        margin: 0 auto;
+    }
+    .cta-button { width: auto; }
+}
+
+/* TABLET: < 992px */
+@media (max-width: 992px) {
+    /* STEPS SECTION */
+    .steps-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .steps-title { font-size: 2.5rem; } 
+    .step-card { padding: 28px 20px; }
+}
+
+/* MOBILE: < 576px */
+@media (max-width: 576px) {
+    /* STEPS SECTION */
+    .steps-title { font-size: 2.2rem; }
+    .step-card { padding: 24px 16px; }
+    .step-icon { width: 50px; height: 50px; }
+}
+
+/* MOBILE: < 480px (НАЙМЕНШІ ЕКРАНИ) */
+@media (max-width: 480px) {
+    /* HERO */
+    .hero-title { font-size: 1.8rem; }
+    .hero-subtitle { font-size: 1rem; }
+
+    /* HEADER */
+    /* Примітка: Секція 3 (Header) не була надіслана, але її стилі тут. */
+    .main-header { padding: 10px 15px; } 
+
+    /* SELECTION */
+    .selection-section {
+        margin-top: -60px;
+        padding: 40px 20px 20px;
+    }
+    .selection-block {
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px;
+        border-radius: 14px;
+    }
+    .cta-button {
+        width: 100%;
+        max-width: 280px;
+        min-width: 0;
+        font-size: 1.05rem;
+        padding: 16px 20px;
+        margin: 0; /* Прибрано зайвий margin */
+    }
+    }
+    
